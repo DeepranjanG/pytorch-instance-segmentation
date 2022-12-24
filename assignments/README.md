@@ -1,5 +1,5 @@
 ### Assignment 1:
-
+Choose one internship project from the portal. You must select one of the image segmentation project with different dataset from the portal. The chosen project must be finished and submitted with the same architecture.
 
 ### Assignment 2:
 
