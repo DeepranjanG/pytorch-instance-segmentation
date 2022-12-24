@@ -112,25 +112,25 @@ def get_transform(train):
 
 if __name__ == "__main__":
 
-    Root = os.path.join(os.getcwd(), "notebook", "PennFudanPed")
+    Root = os.path.join(os.getcwd(), "PennFudanPed")
     dataset = PennFudanDataset(Root)
-    print(dataset[0])
+    # print(dataset[0])
 
-    model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
-    dataset = PennFudanDataset(Root, get_transform(train=True))
-    data_loader = torch.utils.data.DataLoader(
-        dataset, batch_size=2, shuffle=True, num_workers=4,
-        collate_fn=utils.collate_fn
-    )
-    # For Training
-    images, targets = next(iter(data_loader))
-    images = list(image for image in images)
-    targets = [{k: v for k, v in t.items()} for t in targets]
-    output = model(images, targets)  # Returns losses and detections
-    # For inference
-    model.eval()
-    x = [torch.rand(3, 300, 400), torch.rand(3, 500, 400)]
-    predictions = model(x)  # Returns predictions
+    # model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
+    # dataset = PennFudanDataset(Root, get_transform(train=True))
+    # data_loader = torch.utils.data.DataLoader(
+    #     dataset, batch_size=2, shuffle=True, num_workers=4,
+    #     collate_fn=utils.collate_fn
+    # )
+    # # For Training
+    # images, targets = next(iter(data_loader))
+    # images = list(image for image in images)
+    # targets = [{k: v for k, v in t.items()} for t in targets]
+    # output = model(images, targets)  # Returns losses and detections
+    # # For inference
+    # model.eval()
+    # x = [torch.rand(3, 300, 400), torch.rand(3, 500, 400)]
+    # predictions = model(x)  # Returns predictions
 
     # use our dataset and defined transformations
     dataset = PennFudanDataset(Root, get_transform(train=True))
@@ -174,19 +174,24 @@ if __name__ == "__main__":
 
     # let's train it for 10 epochs
 
-    num_epochs = 1
+    # num_epochs = 1
+    #
+    # for epoch in range(num_epochs):
+    #     # train for one epoch, printing every 10 iterations
+    #     train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq=10)
+    #     # update the learning rate
+    #     lr_scheduler.step()
+    #     # evaluate on the test dataset
+    #     evaluate(model, data_loader_test, device=device)
 
-    for epoch in range(num_epochs):
-        # train for one epoch, printing every 10 iterations
-        train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq=10)
-        # update the learning rate
-        lr_scheduler.step()
-        # evaluate on the test dataset
-        evaluate(model, data_loader_test, device=device)
+    model = torch.load(r"C:\Backup\Project\DL\instance-segmentation\artifacts\12_21_2022_17_08_09\ModelTrainerArtifacts\model.pt", map_location=device)
 
     # pick one image from the test set
     img, _ = dataset_test[0]
     # put the model in evaluation mode
+
+    print(dataset_test[0])
+    print(img)
     model.eval()
     with torch.no_grad():
         prediction = model([img.to(device)])
