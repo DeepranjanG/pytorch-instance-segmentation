@@ -16,11 +16,17 @@
 
 
 ## Solution Proposed
+In this project, you have learned how to create your own training pipeline for instance segmentation models, on a custom dataset. 
+For that, we wrote a torch.utils.data.Dataset class that returns the images and the ground truth boxes and segmentation masks. 
+We also leveraged a Mask R-CNN model pre-trained on COCO train2017 in order to perform transfer learning on this new dataset.
 
-
+## Dataset Used
+ Penn-Fudan Database for Pedestrian Detection and Segmentation. 
+ It contains 170 images with 345 instances of pedestrians, and we will use it to illustrate how to use the new features in torchvision in order to train an instance segmentation model on a custom dataset.
 
 ## Model Used
-
+In this project, we will be using Mask R-CNN, which is based on top of Faster R-CNN. 
+Faster R-CNN is a model that predicts both bounding boxes and class scores for potential objects in the image.
 
 ## How to run?
 
